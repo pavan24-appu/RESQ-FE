@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Disaster Response Dashboard</title>
+<title>RESQ | Disaster Response</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
@@ -27,13 +27,12 @@ header p{font-size:13px;color:var(--mute)}
 .dot.on{background:var(--grn);box-shadow:0 0 8px var(--grn)}
 
 /* widgets */
-main{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:8px 32px 40px}
+main{grid-auto-flow:dense;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:8px 32px 40px}
 .w{background:var(--bg);border-radius:26px;box-shadow:var(--emb);padding:24px;min-width:0}
 .w h2{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .stat{text-align:left}.stat b{display:block;font-size:34px;line-height:1.1}.stat span{color:var(--mute);font-size:13px}
 #w-map{grid-column:span 3;grid-row:span 2;padding:14px}
 #map{height:560px;border-radius:18px;box-shadow:var(--inset);z-index:1}
-#w-sos{grid-column:4}
 #w-inc{grid-column:1/-1}
 .sos{width:100%;padding:18px;border-radius:18px;font-weight:700;font-size:17px;color:#fff;background:var(--red);box-shadow:6px 6px 14px var(--lo),-6px -6px 14px var(--hi)}
 .sos:active{box-shadow:inset 3px 3px 8px #9d2222}
@@ -50,6 +49,24 @@ main{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:8px 32px 
 .empty{color:var(--mute);font-size:14px}
 .pulse{width:9px;height:9px;border-radius:50%;background:var(--red);animation:p 1.6s infinite}
 @keyframes p{50%{opacity:.3}}
+
+html{scroll-behavior:smooth}
+header h1{letter-spacing:3px;color:var(--red)}
+.search{flex:1;min-width:180px;max-width:460px;padding:13px 20px;border:0;border-radius:16px;background:var(--bg);box-shadow:var(--inset);font:inherit;color:var(--ink)}
+#w-stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px}
+.w2{grid-column:span 2}.w4{grid-column:1/-1}
+.no-sos #w-map{grid-column:1/-1}
+.act{width:100%;padding:14px;border-radius:16px;font-weight:600;box-shadow:var(--emb)}.act:active{box-shadow:var(--inset)}
+.list{margin-top:16px;display:grid;gap:14px}
+.hosp{display:block;padding:12px 14px;border-radius:14px;color:inherit;text-decoration:none;box-shadow:4px 4px 10px var(--lo),-4px -4px 10px var(--hi)}
+.hosp span{display:block;font-size:12px;color:var(--mute)}
+.row{margin-bottom:20px}.row>div:first-child{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}.row span{color:var(--mute)}
+.row p{font-size:12px;color:var(--mute);margin-top:6px}
+.bar{height:12px;border-radius:8px;box-shadow:var(--inset);overflow:hidden}.bar i{display:block;height:100%;border-radius:8px}
+.tab{padding:9px 18px;border-radius:14px;margin:0 10px 14px 0;box-shadow:5px 5px 11px var(--lo),-5px -5px 11px var(--hi)}
+.tab[aria-pressed=true]{box-shadow:var(--inset);color:var(--red);font-weight:600}
+.dd{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;margin-top:10px}
+.dd h3{margin-bottom:10px}.dd ul{padding-left:20px;display:grid;gap:8px;font-size:14px}
 
 /* drawer */
 #scrim{position:fixed;inset:0;background:rgba(31,42,55,.35);opacity:0;pointer-events:none;transition:opacity .25s;z-index:900}
@@ -69,7 +86,7 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
 .leg i{width:14px;height:14px;border-radius:5px;box-shadow:2px 2px 4px var(--lo),-2px -2px 4px var(--hi)}
 
 @media(max-width:1100px){main{grid-template-columns:repeat(2,1fr)}#w-map{grid-column:1/-1;grid-row:auto}#w-sos{grid-column:auto}}
-@media(max-width:640px){header{padding:16px}main{grid-template-columns:1fr;gap:24px;padding:8px 16px 32px}#map{height:380px}.status span{display:none}}
+@media(max-width:640px){header{padding:16px;flex-wrap:wrap}.search{order:5;max-width:none;flex-basis:100%}.w2{grid-column:1/-1}main{grid-template-columns:1fr;gap:24px;padding:8px 16px 32px}#map{height:380px}.status span{display:none}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -78,17 +95,8 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
 <div id="scrim"></div>
 <aside id="drawer" aria-label="Menu">
   <div class="top"><b style="font-size:18px">Control Center</b><button class="close" id="closeBtn" aria-label="Close menu">✕</button></div>
-  <nav class="nav">
-    <h3>Go to</h3>
-    <a href="#w-stats">Overview</a><a href="#w-map">Live map</a><a href="#w-sos">Emergency SOS</a><a href="#w-inc">Incidents</a>
-  </nav>
-  <section>
-    <h3>Show widgets</h3>
-    <div class="tg">Overview<button class="sw" data-w="w-stats" aria-pressed="true" aria-label="Toggle overview"></button></div>
-    <div class="tg">Live map<button class="sw" data-w="w-map" aria-pressed="true" aria-label="Toggle map"></button></div>
-    <div class="tg">Emergency SOS<button class="sw" data-w="w-sos" aria-pressed="true" aria-label="Toggle SOS"></button></div>
-    <div class="tg">Incidents<button class="sw" data-w="w-inc" aria-pressed="true" aria-label="Toggle incidents"></button></div>
-  </section>
+  <nav class="nav" id="nav"><h3>Go to</h3></nav>
+  <section id="tgs"><h3>Show widgets</h3></section>
   <section>
     <h3>Map legend</h3>
     <div class="leg"><i style="background:var(--red)"></i>Red zone / incident</div>
@@ -103,12 +111,13 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
 
 <header>
   <button class="burger" id="menuBtn" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
-  <div><h1>Disaster Response</h1><p>GIS-enabled control center</p></div>
+  <div><h1>RESQ</h1><p>Disaster response control center</p></div>
+  <input class="search" id="q" type="search" placeholder="Search incidents, hospitals, flood, landslide…" aria-label="Search">
   <div class="status"><i class="dot" id="dot"></i><span id="conn">Connecting</span></div>
 </header>
 
 <main>
-  <section class="w stat" id="w-stats" style="grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px">
+  <section class="w stat" id="w-stats" >
     <div class="stat"><b id="s-total">0</b><span>Active incidents</span></div>
     <div class="stat"><b id="s-crit" class="critical">0</b><span>Critical</span></div>
     <div class="stat"><b id="s-high" class="high">0</b><span>High severity</span></div>
@@ -133,11 +142,28 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
     <h2><i class="pulse"></i>Live incidents (<span id="incident-count">0</span>)</h2>
     <div id="incidents-list"><p class="empty">Loading data…</p></div>
   </section>
+
+  <section class="w" id="w-med">
+    <h2>🏥 Nearest medical help</h2>
+    <button class="act" id="medBtn">Locate nearest</button>
+    <div class="list" id="medList"><p class="empty">Find hospitals close to you.</p></div>
+  </section>
+
+  <section class="w w2" id="w-res"><h2>Resource availability</h2><div id="resList"></div></section>
+  <section class="w w2" id="w-ai"><h2>AI risk predictions</h2><div id="aiList"></div></section>
+
+  <section class="w w4" id="w-guide">
+    <h2>Safety guide: what to do and what not to do</h2>
+    <div id="tabs"></div>
+    <div class="dd">
+      <div><h3 class="ok">✔ Do</h3><ul id="doL"></ul></div>
+      <div><h3 class="bad">✖ Don't</h3><ul id="dontL"></ul></div>
+    </div>
+  </section>
 </main>
 
 <script>
-const API_URL = "https://resq-v2kf.onrender.com/api";
-const SOCKET_URL = "https://resq-v2kf.onrender.com";
+const API_URL="http://localhost:5000/api", SOCKET_URL="http://localhost:5000";
 let map, incidentsLayer, zonesLayer, userMarker=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -151,12 +177,18 @@ const redIcon=new L.Icon({
 function menu(open){document.body.classList.toggle("open",open);$("menuBtn").setAttribute("aria-expanded",open)}
 $("menuBtn").onclick=()=>menu(true);$("closeBtn").onclick=$("scrim").onclick=()=>menu(false);
 document.addEventListener("keydown",e=>e.key==="Escape"&&menu(false));
-document.querySelectorAll(".nav a").forEach(a=>a.onclick=()=>menu(false));
-document.querySelectorAll(".sw").forEach(b=>b.onclick=()=>{
-  const on=b.getAttribute("aria-pressed")!=="true";
-  b.setAttribute("aria-pressed",on);
-  $(b.dataset.w).style.display=on?"":"none";
-  if(on&&b.dataset.w==="w-map")setTimeout(()=>map.invalidateSize(),50);
+const W=[["w-stats","Overview"],["w-map","Live map"],["w-sos","Emergency SOS"],["w-inc","Incidents"],["w-med","Medical help"],["w-res","Resources"],["w-ai","AI predictions"],["w-guide","Safety guide"]];
+W.forEach(([id,n])=>{
+  const a=document.createElement("a");a.href="#"+id;a.textContent=n;a.onclick=()=>menu(false);$("nav").append(a);
+  const t=document.createElement("div");t.className="tg";
+  t.innerHTML=`${n}<button class="sw" aria-pressed="true" aria-label="Toggle ${n}"></button>`;
+  t.lastChild.onclick=e=>{
+    const b=e.currentTarget,on=b.getAttribute("aria-pressed")!=="true";
+    b.setAttribute("aria-pressed",on);$(id).style.display=on?"":"none";
+    if(id==="w-sos")document.body.classList.toggle("no-sos",!on);
+    if(on&&id==="w-map")setTimeout(()=>map.invalidateSize(),50);
+  };
+  $("tgs").append(t);
 });
 
 function initMap(){
@@ -194,7 +226,7 @@ function renderIncidents(list){
       L.marker([lat,lng],{icon:redIcon}).bindPopup(`<strong>${esc(i.title)}</strong><br>Type: ${esc(i.type)}<br>Severity: ${esc(i.severity)}`).addTo(incidentsLayer);
     }
     return `<article class="inc"><span class="tag ${esc(i.severity)}">${esc(i.severity).toUpperCase()}</span><h3>${esc(i.title)}</h3><p>Type: ${esc(i.type)}</p></article>`;
-  }).join("");
+  }).join("");filt();
 }
 
 function setupSocket(){
@@ -228,7 +260,65 @@ $("sosBtn").onclick=()=>{
   },()=>{alert("Please allow location access to trigger SOS.");resetSOS()});
 };
 
-window.onload=()=>{initMap();fetchData();setupSocket()};
+/* search */
+function filt(){const v=$("q").value.toLowerCase();document.querySelectorAll(".inc").forEach(c=>c.style.display=c.textContent.toLowerCase().includes(v)?"":"none")}
+$("q").oninput=filt;
+$("q").onkeydown=e=>{
+  if(e.key!=="Enter")return;
+  const v=e.target.value.toLowerCase();
+  const m=[["flood|rain|landslide|safety","w-guide"],["hospital|medical|doctor","w-med"],["resource|bed|boat|food|ambulance|shelter","w-res"],["\\bai\\b|predict|risk","w-ai"],["sos|emergency","w-sos"]].find(([r])=>new RegExp(r).test(v));
+  if(m&&m[1]==="w-guide")guide(/landslide/.test(v)?"Landslide":/rain/.test(v)?"Heavy rainfall":"Flood");
+  ($(m?m[1]:"w-inc")).scrollIntoView({behavior:"smooth"});
+};
+
+/* safety guide */
+const G={
+ "Flood":{d:["Move to higher ground early, before water reaches you.","Switch off mains power and gas if it is safe to do so.","Keep documents, torch, power bank, medicines and drinking water in a bag.","Follow official alerts and evacuation orders.","Boil or purify water before drinking.","Help children, the elderly and neighbours who need support."],
+  n:["Don't walk or drive through floodwater; a small depth can sweep you away.","Don't touch electric poles, wires or switches near water.","Don't ignore evacuation orders.","Don't drink floodwater or eat food that touched it.","Don't return home until authorities say it is safe."]},
+ "Heavy rainfall":{d:["Stay indoors and keep your phone charged.","Check weather alerts regularly.","Clear drains and gutters near your home.","Secure loose objects on balconies and roofs.","Store water, food and medicines for a few days.","Stay away from low-lying areas."],
+  n:["Don't shelter under trees, hoardings or near electric poles.","Don't cross waterlogged roads or underpasses.","Don't use electrical appliances with wet hands.","Don't travel unless it is essential.","Don't park in low areas or under weak structures."]},
+ "Landslide":{d:["Watch for warning signs: new cracks, tilting trees or poles, muddy water, rumbling sounds.","Leave at once and move sideways, away from the slope's path.","Stay alert during and after intense rain.","Report slips and blocked roads to the authorities.","If trapped, curl up and protect your head."],
+  n:["Don't stay or camp below steep slopes in heavy rain.","Don't cross debris flows or damaged ground.","Don't return until the area is declared safe.","Don't ignore small slips or cracks; they can come before a larger slide.","Don't dig or build on steep slopes without expert advice."]}};
+function guide(k){
+  $("tabs").querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-pressed",b.textContent===k));
+  $("doL").innerHTML=G[k].d.map(x=>`<li>${x}</li>`).join("");
+  $("dontL").innerHTML=G[k].n.map(x=>`<li>${x}</li>`).join("");
+}
+Object.keys(G).forEach(k=>{const b=document.createElement("button");b.className="tab";b.textContent=k;b.onclick=()=>guide(k);$("tabs").append(b)});
+guide("Flood");
+
+/* nearest medical facility */
+$("medBtn").onclick=()=>{
+  const b=$("medBtn"),L=$("medList");b.disabled=true;b.textContent="Locating…";
+  const done=()=>{b.disabled=false;b.textContent="Locate nearest"};
+  if(!navigator.geolocation){L.innerHTML='<p class="bad">Location is not supported.</p>';return done()}
+  navigator.geolocation.getCurrentPosition(async p=>{
+    const {latitude:a,longitude:o}=p.coords;
+    try{
+      const d=await (await fetch(`${API_URL}/emergency/location?lat=${a}&lng=${o}`)).json();
+      const h=(d.nearest.hospitals||[]).slice(0,5);
+      L.innerHTML=h.length?h.map(x=>{
+        const c=x.location&&x.location.coordinates;
+        const u=c?`https://www.google.com/maps/dir/?api=1&origin=${a},${o}&destination=${c[1]},${c[0]}`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.name)}`;
+        return `<a class="hosp" href="${u}" target="_blank" rel="noopener"><b>${esc(x.name)}</b><span>Get directions</span></a>`}).join(""):'<p class="empty">No hospitals found nearby.</p>';
+    }catch(e){L.innerHTML='<p class="bad">Could not reach the server.</p>'}
+    done();
+  },()=>{L.innerHTML='<p class="bad">Allow location access to find help.</p>';done()});
+};
+
+/* resources + AI predictions (live from API, sample data if unavailable) */
+const bar=(p,c)=>`<div class="bar"><i style="width:${p}%;background:${c}"></i></div>`;
+const col=p=>p>=75?"var(--red)":p>=50?"var(--org)":p>=25?"var(--yel)":"var(--grn)";
+const lvl=p=>p>=75?"Severe":p>=50?"High":p>=25?"Moderate":"Low";
+async function getJ(path,fb){try{const r=await fetch(API_URL+path);if(!r.ok)throw 0;const j=await r.json();return [j.data||j,false]}catch(e){return [fb,true]}}
+async function loadExtras(){
+  const [res,rs]=await getJ("/resources",[{name:"Hospital beds",available:120,total:200},{name:"Ambulances",available:14,total:25},{name:"Rescue boats",available:6,total:15},{name:"Food kits",available:900,total:2000},{name:"Shelter seats",available:350,total:1200}]);
+  $("resList").innerHTML=res.map(r=>{const p=Math.round(r.available/r.total*100);return `<div class="row"><div><b>${esc(r.name)}</b><span>${r.available} / ${r.total} available</span></div>${bar(p,col(100-p))}</div>`}).join("")+(rs?'<p class="empty">Sample data. Connect /api/resources for live numbers.</p>':"");
+  const [ai,as]=await getJ("/predictions",[{hazard:"Flood",risk:72,note:"Rising river levels in low-lying areas"},{hazard:"Heavy rainfall",risk:85,note:"Intense spells likely in the next 24 hours"},{hazard:"Landslide",risk:58,note:"Saturated slopes in hilly zones"}]);
+  $("aiList").innerHTML=ai.map(r=>`<div class="row"><div><b>${esc(r.hazard)}</b><span style="color:${col(r.risk)}">${lvl(r.risk)} · ${r.risk}%</span></div>${bar(r.risk,col(r.risk))}<p>${esc(r.note)}</p></div>`).join("")+(as?'<p class="empty">Sample predictions. Connect /api/predictions for live model output.</p>':"");
+}
+
+window.onload=()=>{initMap();fetchData();setupSocket();loadExtras()};
 </script>
 </body>
 </html>
