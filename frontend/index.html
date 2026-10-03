@@ -136,7 +136,8 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
 </main>
 
 <script>
-const API_URL="http://localhost:5000/api", SOCKET_URL="http://localhost:5000";
+const API_URL = "https://resq-v2kf.onrender.com/api";
+const SOCKET_URL = "https://resq-v2kf.onrender.com";
 let map, incidentsLayer, zonesLayer, userMarker=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -231,4 +232,3 @@ window.onload=()=>{initMap();fetchData();setupSocket()};
 </script>
 </body>
 </html>
-
