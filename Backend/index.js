@@ -49,7 +49,7 @@ app.use("/api/", apiLimiter);
    DATABASE CONNECTION
 ========================================================= */
 mongoose
-    .connect(MONGODB_URI)
+    .connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB connected successfully"))
     .catch((error) => console.error("MongoDB connection error:", error.message));
 
