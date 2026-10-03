@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RESQ | Disaster Response</title>
+<title>ResQ | Disaster Management System</title>
+<link rel="icon" href="data:image/jpeg;base64,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">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <style>
-:root{--bg:#e4e9f0;--ink:#1f2a37;--mute:#6b7788;--red:#d93a3a;--org:#e8772e;--yel:#d9a521;--grn:#2e9d6a;
+:root{--navy:#17386b;--bg:#e4e9f0;--ink:#1f2a37;--mute:#6b7788;--red:#d93a3a;--org:#e8772e;--yel:#d9a521;--grn:#2e9d6a;
 --hi:#fff;--lo:#b9c2d0;--emb:8px 8px 18px var(--lo),-8px -8px 18px var(--hi);--inset:inset 4px 4px 9px var(--lo),inset -4px -4px 9px var(--hi)}
 *{box-sizing:border-box;margin:0}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",system-ui,sans-serif;min-height:100vh}
@@ -32,7 +34,7 @@ main{grid-auto-flow:dense;display:grid;grid-template-columns:repeat(4,1fr);gap:3
 .w h2{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .stat{text-align:left}.stat b{display:block;font-size:34px;line-height:1.1}.stat span{color:var(--mute);font-size:13px}
 #w-map{grid-column:span 3;grid-row:span 2;padding:14px}
-#map{height:560px;border-radius:18px;box-shadow:var(--inset);z-index:1}
+#map{height:430px;border-radius:18px;box-shadow:var(--inset);z-index:1}
 #w-inc{grid-column:1/-1}
 .sos{width:100%;padding:18px;border-radius:18px;font-weight:700;font-size:17px;color:#fff;background:var(--red);box-shadow:6px 6px 14px var(--lo),-6px -6px 14px var(--hi)}
 .sos:active{box-shadow:inset 3px 3px 8px #9d2222}
@@ -51,7 +53,8 @@ main{grid-auto-flow:dense;display:grid;grid-template-columns:repeat(4,1fr);gap:3
 @keyframes p{50%{opacity:.3}}
 
 html{scroll-behavior:smooth}
-header h1{letter-spacing:3px;color:var(--red)}
+header h1{font:800 28px/1.1 Poppins,"Segoe UI",sans-serif;letter-spacing:.5px;color:var(--navy)}
+.w h2{font-family:Poppins,"Segoe UI",sans-serif;color:var(--navy)}
 .search{flex:1;min-width:180px;max-width:460px;padding:13px 20px;border:0;border-radius:16px;background:var(--bg);box-shadow:var(--inset);font:inherit;color:var(--ink)}
 #w-stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px}
 .w2{grid-column:span 2}.w4{grid-column:1/-1}
@@ -67,6 +70,20 @@ header h1{letter-spacing:3px;color:var(--red)}
 .tab[aria-pressed=true]{box-shadow:var(--inset);color:var(--red);font-weight:600}
 .dd{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;margin-top:10px}
 .dd h3{margin-bottom:10px}.dd ul{padding-left:20px;display:grid;gap:8px;font-size:14px}
+
+.logo{width:56px;height:56px;border-radius:16px;object-fit:cover;box-shadow:var(--emb)}
+.rg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px}.rg h3{font-size:14px;color:var(--navy);margin-bottom:14px}
+.safe{display:block;width:100%;text-align:left;padding:14px 16px;margin-bottom:16px;border-radius:16px;box-shadow:5px 5px 11px var(--lo),-5px -5px 11px var(--hi)}
+.safe:active{box-shadow:var(--inset)}.safe span{display:block;font-size:12px;color:var(--mute)}
+#rep{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+.card{padding:20px;border-radius:20px;box-shadow:var(--inset)}.card h3{font-size:14px;color:var(--navy);margin-bottom:16px}
+.donut{display:flex;align-items:center;gap:24px;flex-wrap:wrap}.donut p{display:flex;align-items:center;gap:8px;font-size:14px;margin-bottom:6px}.donut i{width:12px;height:12px;border-radius:4px}
+.rh{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px}.rh h2{margin:0}
+footer{margin:0 32px 32px;padding:24px 28px;border-radius:26px;box-shadow:var(--emb);display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+footer .t{flex:1;min-width:200px}footer b{font:700 16px Poppins,sans-serif;color:var(--navy)}footer p{font-size:13px;color:var(--mute)}
+.nums{display:flex;gap:16px;flex-wrap:wrap}.nums a{padding:12px 18px;border-radius:14px;text-decoration:none;color:var(--ink);font-weight:600;box-shadow:5px 5px 11px var(--lo),-5px -5px 11px var(--hi)}
+.nums a:active{box-shadow:var(--inset)}.nums .big{background:var(--red);color:#fff}
+@media(max-width:640px){footer{margin:0 16px 24px}}
 
 /* drawer */
 #scrim{position:fixed;inset:0;background:rgba(31,42,55,.35);opacity:0;pointer-events:none;transition:opacity .25s;z-index:900}
@@ -86,7 +103,7 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
 .leg i{width:14px;height:14px;border-radius:5px;box-shadow:2px 2px 4px var(--lo),-2px -2px 4px var(--hi)}
 
 @media(max-width:1100px){main{grid-template-columns:repeat(2,1fr)}#w-map{grid-column:1/-1;grid-row:auto}#w-sos{grid-column:auto}}
-@media(max-width:640px){header{padding:16px;flex-wrap:wrap}.search{order:5;max-width:none;flex-basis:100%}.w2{grid-column:1/-1}main{grid-template-columns:1fr;gap:24px;padding:8px 16px 32px}#map{height:380px}.status span{display:none}}
+@media(max-width:640px){header{padding:16px;flex-wrap:wrap}.search{order:5;max-width:none;flex-basis:100%}.w2{grid-column:1/-1}main{grid-template-columns:1fr;gap:24px;padding:8px 16px 32px}#map{height:320px}.status span{display:none}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -102,6 +119,7 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
     <div class="leg"><i style="background:var(--red)"></i>Red zone / incident</div>
     <div class="leg"><i style="background:var(--org)"></i>High-risk zone</div>
     <div class="leg"><i style="background:#3b82f6"></i>Your location</div>
+    <div class="leg"><i style="background:var(--grn)"></i>Safe place / shelter</div>
   </section>
   <section>
     <h3>Details</h3>
@@ -111,7 +129,8 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
 
 <header>
   <button class="burger" id="menuBtn" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
-  <div><h1>RESQ</h1><p>Disaster response control center</p></div>
+  <img class="logo" id="hlogo" src="data:image/jpeg;base64,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" alt="ResQ logo">
+  <div><h1>ResQ</h1><p>Disaster Management System</p></div>
   <input class="search" id="q" type="search" placeholder="Search incidents, hospitals, flood, landslide…" aria-label="Search">
   <div class="status"><i class="dot" id="dot"></i><span id="conn">Connecting</span></div>
 </header>
@@ -149,8 +168,15 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
     <div class="list" id="medList"><p class="empty">Find hospitals close to you.</p></div>
   </section>
 
-  <section class="w w2" id="w-res"><h2>Resource availability</h2><div id="resList"></div></section>
+  <section class="w w4" id="w-res"><h2>Resource availability: food, water, ambulances and services</h2><div id="resList"></div></section>
   <section class="w w2" id="w-ai"><h2>AI risk predictions</h2><div id="aiList"></div></section>
+
+  <section class="w w2" id="w-safe"><h2>Safe places and bunkers</h2><div id="safeList"></div></section>
+
+  <section class="w w4" id="w-rep">
+    <div class="rh"><h2>Reports: data, graphs and comparisons</h2><button class="act" style="width:auto;padding:10px 20px" onclick="print()">Print / save as PDF</button></div>
+    <div id="rep"></div>
+  </section>
 
   <section class="w w4" id="w-guide">
     <h2>Safety guide: what to do and what not to do</h2>
@@ -162,9 +188,17 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
   </section>
 </main>
 
+<footer id="foot">
+  <img class="logo" alt="ResQ logo">
+  <div class="t"><b>Emergency helplines (toll-free)</b><p>Tap a number to place a call from your phone.</p></div>
+  <div class="nums">
+    <a class="big" href="tel:112">📞 112 Emergency</a><a href="tel:108">108 Ambulance</a><a href="tel:101">101 Fire</a><a href="tel:100">100 Police</a><a href="tel:1078">1078 Disaster</a>
+  </div>
+</footer>
+
 <script>
 const API_URL="http://localhost:5000/api", SOCKET_URL="http://localhost:5000";
-let map, incidentsLayer, zonesLayer, userMarker=null;
+let map, incidentsLayer, zonesLayer, safeLayer, userMarker=null, INC=[], RES=[], AI=[], SAFE=[], SM=[], SAMPLE=false;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
@@ -177,7 +211,7 @@ const redIcon=new L.Icon({
 function menu(open){document.body.classList.toggle("open",open);$("menuBtn").setAttribute("aria-expanded",open)}
 $("menuBtn").onclick=()=>menu(true);$("closeBtn").onclick=$("scrim").onclick=()=>menu(false);
 document.addEventListener("keydown",e=>e.key==="Escape"&&menu(false));
-const W=[["w-stats","Overview"],["w-map","Live map"],["w-sos","Emergency SOS"],["w-inc","Incidents"],["w-med","Medical help"],["w-res","Resources"],["w-ai","AI predictions"],["w-guide","Safety guide"]];
+const W=[["w-stats","Overview"],["w-map","Live map"],["w-sos","Emergency SOS"],["w-inc","Incidents"],["w-med","Medical help"],["w-res","Resources"],["w-ai","AI predictions"],["w-safe","Safe places"],["w-rep","Reports"],["w-guide","Safety guide"]];
 W.forEach(([id,n])=>{
   const a=document.createElement("a");a.href="#"+id;a.textContent=n;a.onclick=()=>menu(false);$("nav").append(a);
   const t=document.createElement("div");t.className="tg";
@@ -192,9 +226,9 @@ W.forEach(([id,n])=>{
 });
 
 function initMap(){
-  map=L.map('map').setView([12.3,76.65],8);
+  map=L.map('map',{scrollWheelZoom:false,dragging:!L.Browser.mobile,tap:false}).setView([12.3,76.65],8);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-  incidentsLayer=L.layerGroup().addTo(map);
+  incidentsLayer=L.layerGroup().addTo(map);safeLayer=L.layerGroup().addTo(map);
   zonesLayer=L.geoJSON(null,{
     style:f=>({color:f.properties.riskLevel==='red'?'#dc2626':'#ea580c',weight:2,fillOpacity:.4}),
     onEachFeature:(f,l)=>l.bindPopup(`<strong>${esc(f.properties.name)}</strong><br>Risk: ${esc(f.properties.riskLevel).toUpperCase()}<br>Type: ${esc(f.properties.disasterType)}`)
@@ -214,7 +248,7 @@ async function fetchData(){
   }
 }
 
-function renderIncidents(list){
+function renderIncidents(list){INC=list;report();
   incidentsLayer.clearLayers();
   $("incident-count").innerText=$("s-total").innerText=list.length;
   $("s-crit").innerText=list.filter(i=>i.severity==='critical').length;
@@ -311,14 +345,69 @@ const bar=(p,c)=>`<div class="bar"><i style="width:${p}%;background:${c}"></i></
 const col=p=>p>=75?"var(--red)":p>=50?"var(--org)":p>=25?"var(--yel)":"var(--grn)";
 const lvl=p=>p>=75?"Severe":p>=50?"High":p>=25?"Moderate":"Low";
 async function getJ(path,fb){try{const r=await fetch(API_URL+path);if(!r.ok)throw 0;const j=await r.json();return [j.data||j,false]}catch(e){return [fb,true]}}
+const RES0=[
+ {cat:"Food & water",name:"Drinking water (litres)",available:45000,total:80000},
+ {cat:"Food & water",name:"Packaged food kits",available:900,total:2000},
+ {cat:"Food & water",name:"Cooked meals per day",available:3500,total:6000},
+ {cat:"Ambulance & medical",name:"Ambulances (108)",available:14,total:25},
+ {cat:"Ambulance & medical",name:"Hospital beds",available:120,total:200},
+ {cat:"Ambulance & medical",name:"ICU beds",available:12,total:30},
+ {cat:"Ambulance & medical",name:"Oxygen cylinders",available:80,total:150},
+ {cat:"Rescue & safety",name:"Rescue boats",available:6,total:15},
+ {cat:"Rescue & safety",name:"NDRF / SDRF teams",available:4,total:8},
+ {cat:"Rescue & safety",name:"Life jackets",available:300,total:500},
+ {cat:"Shelter & other services",name:"Shelter seats",available:350,total:1200},
+ {cat:"Shelter & other services",name:"Generators",available:18,total:40},
+ {cat:"Shelter & other services",name:"Blankets and tents",available:420,total:900},
+ {cat:"Shelter & other services",name:"Fuel (litres)",available:5000,total:12000}];
+const AI0=[{hazard:"Flood",risk:72,prev:60,note:"Rising river levels in low-lying areas"},{hazard:"Heavy rainfall",risk:85,prev:70,note:"Intense spells likely in the next 24 hours"},{hazard:"Landslide",risk:58,prev:55,note:"Saturated slopes in hilly zones"}];
+const SAFE0=[
+ {name:"Mysuru District Relief Camp",type:"Relief shelter",capacity:1200,location:{coordinates:[76.6394,12.2958]}},
+ {name:"Madikeri Fortified Shelter",type:"Bunker / fortified shelter",capacity:400,location:{coordinates:[75.7382,12.4244]}},
+ {name:"Mandya Government School Shelter",type:"School shelter",capacity:600,location:{coordinates:[76.8951,12.5218]}},
+ {name:"Hassan High-ground Camp",type:"Elevated safe ground",capacity:900,location:{coordinates:[76.0996,13.0068]}},
+ {name:"Chamarajanagar Community Hall",type:"Community shelter",capacity:350,location:{coordinates:[76.9437,11.9261]}}];
+
+function resHTML(){
+  const g={};RES.forEach(r=>(g[r.cat||"Other services"]=g[r.cat||"Other services"]||[]).push(r));
+  return '<div class="rg">'+Object.entries(g).map(([c,a])=>`<div><h3>${esc(c)}</h3>`+a.map(r=>{const p=Math.round(r.available/r.total*100);return `<div class="row"><div><b>${esc(r.name)}</b><span>${r.available.toLocaleString()} / ${r.total.toLocaleString()}</span></div>${bar(p,col(100-p))}</div>`}).join("")+'</div>').join("")+'</div>';
+}
+function report(){
+  if(!$("rep"))return;
+  const T={};INC.forEach(i=>T[i.type]=(T[i.type]||0)+1);
+  const types=Object.entries(T).sort((a,b)=>b[1]-a[1]),mx=Math.max(1,...types.map(t=>t[1])),tot=INC.length;
+  const cr=INC.filter(i=>i.severity==="critical").length,hi=INC.filter(i=>i.severity==="high").length;
+  const sev=[["Critical",cr,"var(--red)"],["High",hi,"var(--org)"],["Medium / low",tot-cr-hi,"var(--yel)"]];
+  let off=25;
+  const ring=sev.map(([n,c,k])=>{const p=tot?c/tot*100:0;const e=`<circle r="15.9155" cx="21" cy="21" fill="none" style="stroke:${k}" stroke-width="6" stroke-dasharray="${p} ${100-p}" stroke-dashoffset="${off}"/>`;off-=p;return e}).join("");
+  const low=RES.map(r=>({n:r.name,p:Math.round(r.available/r.total*100)})).sort((a,b)=>a.p-b.p).slice(0,6);
+  $("rep").innerHTML=
+   `<div class="card"><h3>Incidents by type</h3>${types.length?types.map(([n,c])=>`<div class="row"><div><b style="text-transform:capitalize">${esc(n)}</b><span>${c}</span></div>${bar(c/mx*100,"var(--navy)")}</div>`).join(""):'<p class="empty">No incident data yet.</p>'}</div>`+
+   `<div class="card"><h3>Severity split</h3><div class="donut"><svg viewBox="0 0 42 42" width="150" height="150"><circle r="15.9155" cx="21" cy="21" fill="none" stroke="#d3dae5" stroke-width="6"/>${ring}</svg><div>${sev.map(([n,c,k])=>`<p><i style="background:${k}"></i>${n}: <b>${c}</b></p>`).join("")}</div></div></div>`+
+   `<div class="card"><h3>Risk now vs 24 hours ago</h3>${AI.map(r=>`<div class="row"><div><b>${esc(r.hazard)}</b><span>${r.prev!=null?r.prev+"% → ":""}${r.risk}%</span></div>${bar(r.risk,col(r.risk))}<div style="height:6px"></div>${bar(r.prev||0,"var(--lo)")}</div>`).join("")}<p class="empty">Top bar: now. Grey bar: 24 hours ago.</p></div>`+
+   `<div class="card"><h3>Resource comparison (lowest availability first)</h3>${low.map(r=>`<div class="row"><div><b>${esc(r.n)}</b><span>${r.p}% available</span></div>${bar(r.p,col(100-r.p))}</div>`).join("")}</div>`+
+   (SAMPLE?'<p class="empty" style="grid-column:1/-1">Resource, prediction and safe-place figures are sample data until the API endpoints are connected.</p>':"");
+}
+function renderSafe(){
+  safeLayer.clearLayers();SM=[];
+  $("safeList").innerHTML=SAFE.map((s,i)=>{
+    const [lng,lat]=s.location.coordinates;
+    SM[i]=L.circleMarker([lat,lng],{radius:9,color:"#fff",weight:2,fillColor:"#2e9d6a",fillOpacity:1}).bindPopup(`<strong>${esc(s.name)}</strong><br>${esc(s.type)}<br>Capacity: ${s.capacity}<br><a href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" target="_blank" rel="noopener">Directions</a>`).addTo(safeLayer);
+    return `<button class="safe" data-i="${i}"><b>🛡️ ${esc(s.name)}</b><span>${esc(s.type)} · capacity ${s.capacity}</span></button>`}).join("");
+}
+$("safeList").onclick=e=>{const b=e.target.closest(".safe");if(!b)return;const i=+b.dataset.i,[lng,lat]=SAFE[i].location.coordinates;
+  $("w-map").scrollIntoView({behavior:"smooth",block:"center"});map.flyTo([lat,lng],11);SM[i].openPopup()};
+
 async function loadExtras(){
-  const [res,rs]=await getJ("/resources",[{name:"Hospital beds",available:120,total:200},{name:"Ambulances",available:14,total:25},{name:"Rescue boats",available:6,total:15},{name:"Food kits",available:900,total:2000},{name:"Shelter seats",available:350,total:1200}]);
-  $("resList").innerHTML=res.map(r=>{const p=Math.round(r.available/r.total*100);return `<div class="row"><div><b>${esc(r.name)}</b><span>${r.available} / ${r.total} available</span></div>${bar(p,col(100-p))}</div>`}).join("")+(rs?'<p class="empty">Sample data. Connect /api/resources for live numbers.</p>':"");
-  const [ai,as]=await getJ("/predictions",[{hazard:"Flood",risk:72,note:"Rising river levels in low-lying areas"},{hazard:"Heavy rainfall",risk:85,note:"Intense spells likely in the next 24 hours"},{hazard:"Landslide",risk:58,note:"Saturated slopes in hilly zones"}]);
-  $("aiList").innerHTML=ai.map(r=>`<div class="row"><div><b>${esc(r.hazard)}</b><span style="color:${col(r.risk)}">${lvl(r.risk)} · ${r.risk}%</span></div>${bar(r.risk,col(r.risk))}<p>${esc(r.note)}</p></div>`).join("")+(as?'<p class="empty">Sample predictions. Connect /api/predictions for live model output.</p>':"");
+  let f1,f2,f3;
+  [RES,f1]=await getJ("/resources",RES0);[AI,f2]=await getJ("/predictions",AI0);[SAFE,f3]=await getJ("/shelters",SAFE0);
+  SAMPLE=f1||f2||f3;
+  $("resList").innerHTML=resHTML();
+  $("aiList").innerHTML=AI.map(r=>`<div class="row"><div><b>${esc(r.hazard)}</b><span style="color:${col(r.risk)}">${lvl(r.risk)} · ${r.risk}%</span></div>${bar(r.risk,col(r.risk))}<p>${esc(r.note)}${r.prev!=null?` · ${r.risk>=r.prev?"▲":"▼"} ${Math.abs(r.risk-r.prev)} pts vs 24 h ago`:""}</p></div>`).join("");
+  renderSafe();report();
 }
 
-window.onload=()=>{initMap();fetchData();setupSocket();loadExtras()};
+window.onload=()=>{document.querySelectorAll(".logo").forEach(i=>i.src=$("hlogo").src);initMap();fetchData();setupSocket();loadExtras()};
 </script>
 </body>
 </html>
