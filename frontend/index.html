@@ -361,7 +361,7 @@ $("authForm").onsubmit=async e=>{
 const redIcon=new L.Icon({iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',shadowUrl:'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',iconSize:[25,41],iconAnchor:[12,41],popupAnchor:[1,-34],shadowSize:[41,41]});
 function initMap(){
   map=L.map('map',{scrollWheelZoom:false,dragging:!L.Browser.mobile,tap:false}).setView([12.3,76.65],8);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+  L.tileLayer('https://{s}[.basemaps.cartocdn.com/light_all/](https://.basemaps.cartocdn.com/light_all/){z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
   zoneL=L.geoJSON(null,{style:f=>({color:f.properties.riskLevel==='red'?'#e5172b':'#ff7a1a',weight:2,fillOpacity:.35}),
     onEachFeature:(f,l)=>l.bindPopup(`<strong>${esc(f.properties.name)}</strong><br>Risk: ${esc(f.properties.riskLevel).toUpperCase()}<br>Type: ${esc(f.properties.disasterType)}`)}).addTo(map);
   routeL=L.layerGroup().addTo(map);safeL=L.layerGroup().addTo(map);dmgL=L.layerGroup().addTo(map);incL=L.layerGroup().addTo(map);
