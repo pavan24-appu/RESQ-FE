@@ -54,7 +54,7 @@ main{max-width:1500px;margin:0 auto;padding:24px 28px;display:grid;gap:24px}
 .stat.hi{border-color:var(--org)}.stat.hi b{color:var(--org)}
 .hero{display:grid;grid-template-columns:3fr 1fr;gap:24px}.hero.solo{grid-template-columns:1fr}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;transition:transform .2s,border-color .2s}
-#map{height:440px;border-radius:14px;z-index:1}
+#map{height:480px;border-radius:14px;z-index:1}
 .side{display:grid;gap:24px;align-content:start}
 .card h2{font-size:15px;margin-bottom:14px}
 .sos{width:100%;padding:22px;border-radius:18px;font:800 20px Poppins,sans-serif;letter-spacing:1px;color:#fff;background:linear-gradient(135deg,var(--dred),var(--red) 55%,var(--org));animation:ring 2s infinite}
@@ -144,6 +144,15 @@ body.open #drawer{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
 dialog{margin:auto;border:1px solid var(--line);border-radius:22px;background:var(--card);color:var(--ink);padding:26px;width:min(380px,92vw)}
 dialog::backdrop{background:rgba(20,25,34,.45)}
 
+/* liquid glass (subtle) */
+:root{--card:rgba(255,255,255,.58);--c2:rgba(238,242,248,.72)}
+body{background:radial-gradient(900px 500px at 90% -5%,rgba(255,120,110,.35),transparent 60%),radial-gradient(800px 500px at -5% 40%,rgba(255,170,90,.28),transparent 60%),radial-gradient(900px 600px at 60% 105%,rgba(120,160,255,.30),transparent 60%),#f3f5f9;background-attachment:fixed}
+.card,.stat,details.p,header,.bar2,#sosbar,#drawer,.toast,#pm,dialog{-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%)}
+.card,.stat:not(.crit),details.p{box-shadow:0 8px 28px rgba(40,50,90,.09),inset 0 1px 0 rgba(255,255,255,.85)}
+.card,.stat:not(.hi),details.p:not([open]){border-color:rgba(255,255,255,.85)}
+header,.bar2{background:rgba(255,255,255,.5)}
+#sosbar{background:rgba(255,255,255,.74)}#drawer{background:rgba(255,255,255,.8)}
+.toast,#pm{background:rgba(255,255,255,.88)}dialog{background:rgba(255,255,255,.85)}
 @media(max-width:1000px){.hero{grid-template-columns:1fr}.top{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){header,.bar2{padding-inline:16px}main{padding:16px}.search{order:5;max-width:none;flex-basis:100%}#sosbar .t{display:none}.g2{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -175,6 +184,7 @@ dialog::backdrop{background:rgba(20,25,34,.45)}
 <div class="bar2" aria-live="polite">
   <span class="si" id="net"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 8.8a15 15 0 0 1 20 0"/><path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1" fill="currentColor"/></svg><b id="netT">Online</b></span>
   <span class="si"><i class="dot" id="dot"></i><b id="conn">Connecting</b></span>
+  <span class="si">🗄️ <b id="dbs">Checking…</b></span>
   <span class="si">🕒 <b id="clock">--</b></span>
   <span class="si">📍 <b id="gps">Locating…</b></span>
 </div>
@@ -183,10 +193,10 @@ dialog::backdrop{background:rgba(20,25,34,.45)}
   <div id="alertbar" hidden></div>
 
   <section class="top" id="w-stats">
-    <div class="stat"><b id="s-total">0</b><span>Active incidents</span></div>
-    <div class="stat crit"><b id="s-crit">0</b><span>Critical</span></div>
-    <div class="stat hi"><b id="s-high">0</b><span>High severity</span></div>
-    <div class="stat"><b id="s-zones">0</b><span>Risk zones</span></div>
+    <div class="stat"><b id="s-total">–</b><span>Active incidents</span></div>
+    <div class="stat crit"><b id="s-crit">–</b><span>Critical</span></div>
+    <div class="stat hi"><b id="s-high">–</b><span>High severity</span></div>
+    <div class="stat"><b id="s-zones">–</b><span>Risk zones</span></div>
   </section>
 
   <section class="hero" id="hero">
@@ -205,7 +215,7 @@ dialog::backdrop{background:rgba(20,25,34,.45)}
   </section>
 
   <section class="panels">
-    <details class="p" id="w-inc"><summary><i class="pulse"></i>Live incidents <span class="badge r" id="incident-count">0</span></summary>
+    <details class="p" id="w-inc"><summary><i class="pulse"></i>Live incidents <span class="badge r" id="incident-count">–</span></summary>
       <div class="pb"><div class="ilist" id="incidents-list"><p class="empty">Loading data…</p></div></div></details>
 
     <details class="p wide" id="w-res"><summary>📦 Resource availability <span class="badge">food · water · ambulances · services</span></summary>
@@ -348,7 +358,7 @@ $("authForm").onsubmit=async e=>{
 };
 
 /* map */
-const sevIcon=s=>L.divIcon({className:"pinw",html:`<span class="pin ${esc(s)}"></span>`,iconSize:[18,18]});
+const redIcon=new L.Icon({iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',shadowUrl:'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',iconSize:[25,41],iconAnchor:[12,41],popupAnchor:[1,-34],shadowSize:[41,41]});
 function initMap(){
   map=L.map('map',{scrollWheelZoom:false,dragging:!L.Browser.mobile,tap:false}).setView([12.3,76.65],8);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
@@ -364,6 +374,8 @@ function startGPS(){
     ()=>$("gps").textContent="Location off",{enableHighAccuracy:true,maximumAge:10000});
 }
 
+/* database status */
+async function health(){try{const j=await (await fetch(API+"/health")).json();$("dbs").textContent=j.database==="connected"?"Database connected":"Database offline";$("dbs").style.color=j.database==="connected"?"var(--grn)":"var(--red)"}catch(e){$("dbs").textContent="Server unreachable";$("dbs").style.color="var(--red)"}}
 /* incidents */
 async function fetchData(){
   try{
@@ -378,7 +390,7 @@ function renderInc(list){
   $("incident-count").textContent=$("s-total").textContent=list.length;$("s-crit").textContent=cr;$("s-high").textContent=hi;
   $("alertbar").hidden=!cr;$("alertbar").innerHTML=`🚨 <b>${cr}</b> critical incident${cr>1?"s":""} active. Follow official instructions and avoid danger zones.`;
   $("incidents-list").innerHTML=list.length?list.map(i=>{
-    if(i.location&&i.location.coordinates){const [lng,lat]=i.location.coordinates;L.marker([lat,lng],{icon:sevIcon(i.severity)}).bindPopup(`<strong>${esc(i.title)}</strong><br>Type: ${esc(i.type)}<br>Severity: ${esc(i.severity)}`).addTo(incL)}
+    if(i.location&&i.location.coordinates){const [lng,lat]=i.location.coordinates;L.marker([lat,lng],{icon:redIcon}).bindPopup(`<strong>${esc(i.title)}</strong><br>Type: ${esc(i.type)}<br>Severity: ${esc(i.severity)}`).addTo(incL)}
     return `<article class="inc ${esc(i.severity)}"><span class="tag">${esc(i.severity).toUpperCase()}</span><h4>${esc(i.title)}</h4><p>Type: ${esc(i.type)}</p></article>`}).join(""):'<p class="empty">No active incidents right now.</p>';
   filt();renderRD();
 }
@@ -554,7 +566,7 @@ $("q").onkeydown=e=>{
   go(m?m[1]:"w-inc");
 };
 
-window.onload=()=>{try{TOKEN=sessionStorage.getItem("resq.t")||null}catch(e){}renderMe();net();guide("Flood");renderRD();initMap();renderDmg();fetchData();setupSocket();loadExtras();startGPS();setInterval(evac,60000)};
+window.onload=()=>{try{TOKEN=sessionStorage.getItem("resq.t")||null}catch(e){}renderMe();net();guide("Flood");renderRD();initMap();renderDmg();health();setInterval(health,30000);fetchData();setupSocket();loadExtras();startGPS();setInterval(evac,60000)};
 </script>
 </body>
 </html>
